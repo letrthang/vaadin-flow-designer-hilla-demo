@@ -1,6 +1,8 @@
 package com.example.application.data.service;
 
 import com.example.application.data.entity.SamplePerson;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,10 @@ public class SamplePersonService {
 
     public int count() {
         return (int) repository.count();
+    }
+
+    public List<SamplePerson> findAll (){
+        return repository.findAll();
     }
 
 }

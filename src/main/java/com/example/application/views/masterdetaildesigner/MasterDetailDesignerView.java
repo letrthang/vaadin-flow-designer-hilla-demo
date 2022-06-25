@@ -95,9 +95,9 @@ public class MasterDetailDesignerView extends LitTemplate implements HasStyle, B
 
         grid.addColumn(importantRenderer).setHeader("Important").setAutoWidth(true);
 
-        grid.setItems(query -> samplePersonService.list(
-                PageRequest.of(query.getPage(), query.getPageSize(), VaadinSpringDataHelpers.toSpringDataSort(query)))
-                .stream());
+        grid.setItems(samplePersonService.findAll());
+
+
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         grid.setHeightFull();
 
@@ -131,6 +131,7 @@ public class MasterDetailDesignerView extends LitTemplate implements HasStyle, B
                 binder.writeBean(this.samplePerson);
 
                 samplePersonService.update(this.samplePerson);
+                grid.setItems(samplePersonService.findAll());
                 clearForm();
                 refreshGrid();
                 Notification.show("SamplePerson details stored.");
@@ -162,7 +163,7 @@ public class MasterDetailDesignerView extends LitTemplate implements HasStyle, B
 
     private void refreshGrid() {
         grid.select(null);
-        grid.getLazyDataView().refreshAll();
+        grid.getListDataView().refreshAll();
     }
 
     private void clearForm() {
